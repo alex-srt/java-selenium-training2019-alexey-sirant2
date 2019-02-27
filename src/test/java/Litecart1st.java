@@ -34,7 +34,7 @@ public class Litecart1st {
         drv.findElement(By.name("username")).sendKeys("admin");
         drv.findElement(By.name("password")).sendKeys("admin");
         drv.findElement(By.name("login")).click();
-        drv.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+//        drv.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
         System.out.println("Elements # is " + drv.findElements(By.xpath("//*[@id=\"app-\"]/a/span[2]")).size());
 
@@ -46,7 +46,20 @@ public class Litecart1st {
             if ( drv.findElement(By.cssSelector("#content > h1")) != null){
                 System.out.println("Menu Item #" + i + " OK");
             }
+
+            int subLinks = drv.findElements(By.cssSelector("[id^=\"doc-\"]")).size();
+            System.out.println("SubMenuList # is " + subLinks);
+
+            for (int x = 0; x < subLinks; x++) {
+                List<WebElement> subMenuList = drv.findElements(By.cssSelector("[id^=\"doc-\"]"));
+                WebElement subMenuItem = subMenuList.get(x);
+                subMenuItem.click();
+                if ( drv.findElement(By.cssSelector("#content > h1")) != null){
+                    System.out.println("Sub Menu Item #" + x + " OK");
+                }
+
         }
 
     }
+}
 }
